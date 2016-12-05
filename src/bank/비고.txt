@@ -1,0 +1,25 @@
+﻿검증
+
+1. 소모하려는 stackable 갯수가 충분하지 않으면
+	rollback transaction 됨
+	
+2. Remove 연산할 때
+	key = null 이면
+	InvalidOperationException 발생
+	
+3. transaction 내에서 add/delete 연산이 누적되어 비교 적용 됨.
+	돈이 10원 있을 때
+		+1
+		-5
+		-6
+	이것은 ok
+		-5
+		-6
+		+1
+	이것은 실패
+	
+	그런데 단일 타입에 대해 add/delete 를 한번에 처리하는 건 애초에 멍청한 짓이기 때문에 
+	별 상관 없지 않을까?
+	
+	오히려 transaction 내에 단일 타입 아이템에 대한 여러개의 요청이 있는지를 검증 및 제거해야 할 수도 있겠다.
+	
