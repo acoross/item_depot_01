@@ -24,7 +24,8 @@ namespace bank.Contents
             if (s.amount_diff == 0)
                 return true;
             
-            var found = context.tb_stackable_items.SingleOrDefault(ss => ss.owner_id == owner_id && ss.type == s.item_type);
+            var found = context.tb_stackable_items.SingleOrDefault(
+                ss => ss.owner_id == owner_id && ss.type == s.item_type);
             if (found == null)
             {
                 if (s.amount_diff > 0)
@@ -61,7 +62,7 @@ namespace bank.Contents
             return true;
         }
 
-        bool UpdateNonS(TransactionData ns)
+        bool UpdateNonStackable(TransactionData ns)
         {
             if (ns.amount_diff > 0)
             {
@@ -106,7 +107,7 @@ namespace bank.Contents
                     }
                     else if (item.job_type == TransactionJobType.NonStackable)
                     {
-                        if (!UpdateNonS(item))
+                        if (!UpdateNonStackable(item))
                         {
                             return false;
                         }
